@@ -1,0 +1,30 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.1"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.8.5'
+}
+
+task buildGsonRelease(dependsOn : 'assembleRelease',type: Copy){
+    group('plugin')
+    from('build/outputs/apk/plugingson-release-unsigned.apk')
+    into('../app/src/main/assets/plugins')
+    rename('plugingson-release-unsigned.apk','gson.apk')
+}
