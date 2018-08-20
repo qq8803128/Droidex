@@ -1,4 +1,4 @@
-package com.ollyice.droidex;
+package com.ollyice.droidex.multiapk;
 
 import android.content.Context;
 import android.content.SharedPreferences;
