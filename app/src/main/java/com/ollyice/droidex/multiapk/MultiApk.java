@@ -94,10 +94,10 @@ public class MultiApk {
             try{
                 Class<IPackage> clazz = (Class<IPackage>) Class.forName(packageName + ".PackageInvoker");
                 final IPackage iPackage = clazz.newInstance();
+                iPackage.onCreate((Application) context.getApplicationContext());
                 mMainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        iPackage.onCreate((Application) context.getApplicationContext());
                         if (runnable != null){
                             runnable.run();
                         }
