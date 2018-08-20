@@ -24,7 +24,7 @@ dependencies {
 
 task buildGsonRelease(dependsOn : 'assembleRelease',type: Copy){
     group('plugin')
-    from('build/outputs/apk/plugingson-release-unsigned.apk')
+    from('build/outputs/apk/plugin-gson-release-unsigned.apk')
     into('../app/src/main/assets/plugins')
-    rename('plugingson-release-unsigned.apk','gson.apk')
+    rename('plugin-gson-release-unsigned.apk','gson.apk')
 }

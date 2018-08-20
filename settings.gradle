@@ -1,1 +1,1 @@
-include ':app', ':plugingson'
+include ':app', ':plugin-gson', ':plugin-statistics'

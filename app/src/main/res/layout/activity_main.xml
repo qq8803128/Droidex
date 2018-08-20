@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -7,12 +7,37 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ollyice.droidex.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:id="@+id/click"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:text="GSON PLUGIN TEST" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/init"
+        android:layout_height="wrap_content"
+        android:text="INIT" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/event1"
+        android:layout_height="wrap_content"
+        android:text="EVENT1" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/event2"
+        android:layout_height="wrap_content"
+        android:text="EVENT2" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/event3"
+        android:layout_height="wrap_content"
+        android:text="EVENT3" />
+</LinearLayout>

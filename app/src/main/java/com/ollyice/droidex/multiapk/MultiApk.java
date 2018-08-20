@@ -1,12 +1,19 @@
 package com.ollyice.droidex.multiapk;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.ollyice.droidex.statistics.IStatistics;
+import com.ollyice.droidex.util.ApkUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -36,6 +43,7 @@ public class MultiApk {
 
     //是否设置了jni加载路径
     private static boolean sHasInsertedNativeLibrary = false;
+    private static Handler mMainHandler = new Handler(Looper.getMainLooper());
 
     //判断app里面是否已经加载了当前插件
     public static boolean isInstalled(Context context, File apk) {
@@ -75,6 +83,32 @@ public class MultiApk {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void install(final Context context, File apk, boolean callOnCreate, final Runnable runnable){
+        install(context,apk);
+
+        if (callOnCreate){//demo里面设置只能用插件包名.PackageInvoker 继承IPackage来调用
+            String packageName = ApkUtils.getApkPackageName(apk.getAbsolutePath(),context);
+            if (TextUtils.isEmpty(packageName))return;
+            try{
+                Class<IPackage> clazz = (Class<IPackage>) Class.forName(packageName + ".PackageInvoker");
+                final IPackage iPackage = clazz.newInstance();
+                mMainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        iPackage.onCreate((Application) context.getApplicationContext());
+                        if (runnable != null){
+                            runnable.run();
+                        }
+                    }
+                });
+            }catch (Exception e){
+                e.printStackTrace();
+            }catch (Error e){
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -432,5 +466,9 @@ public class MultiApk {
         }
 
         return null;
+    }
+
+    public static interface IPackage{
+        void onCreate(Application application);
     }
 }
